@@ -6,7 +6,7 @@ except:
 
 setup(name = "memoize",
       version = "0.1.0",
-      description = "memoize decorator",
+      description = "A memoize decorator",
       author = "Color Genomics",
       author_email = "dev@getcolor.com",
       url = "https://github.com/ColorGenomics/memoize",
