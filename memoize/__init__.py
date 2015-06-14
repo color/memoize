@@ -2,6 +2,9 @@ from decorator import decorator
 import os
 
 
+# functions that have been decorated
+memoize_decorated = set()
+
 def memoize(fun):
     def wrapper(fun, *args, **kwargs):
         if hasattr(fun, '_memoize_keyfunc'):
@@ -21,7 +24,7 @@ def memoize(fun):
 
     decorated = decorator(wrapper, fun)
     memoize_zap_cache(decorated)
-
+    memoize_decorated.add(decorated)
     return decorated
 
 def memoize_per_proc(fun):
@@ -31,8 +34,13 @@ def memoize_per_proc(fun):
 
     return memoize_key(keyfunc)(fun)
 
-def memoize_zap_cache(fun):
-    fun.undecorated._cache = {}
+def memoize_zap_cache(fun=None):
+    """Clear memoized values for all functions (default) or one."""
+    if fun is None:
+        for fun in memoize_decorated:
+            fun.undecorated._cache = {}
+    else:
+        fun.undecorated._cache = {}
 
 memoize_cache = {}
 def memoize_(fun, *args, **kwargs):
