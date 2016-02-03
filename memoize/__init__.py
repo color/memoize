@@ -38,9 +38,9 @@ def memoize_zap_cache(fun=None):
     """Clear memoized values for all functions (default) or one."""
     if fun is None:
         for fun in memoize_decorated:
-            fun.undecorated._cache = {}
+            fun.__wrapped__._cache = {}
     else:
-        fun.undecorated._cache = {}
+        fun.__wrapped__._cache = {}
 
 memoize_cache = {}
 def memoize_(fun, *args, **kwargs):
