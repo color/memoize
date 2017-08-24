@@ -6,7 +6,7 @@ A memoize decorator.
 
 * Install memoize
 ```
-$ pip install git+https://git+https://github.com/ColorGenomics/memoize.git@v0.2.0
+$ pip install git+https://git+https://github.com/ColorGenomics/memoize.git@v0.2.2
 ```
 
 * Use a memoize decorator
