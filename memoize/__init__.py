@@ -10,7 +10,7 @@ def memoize(fun):
         if hasattr(fun, '_memoize_keyfunc'):
             key = fun._memoize_keyfunc(*args, **kwargs)
         else:
-            key = args, frozenset(kwargs.iteritems())
+            key = args, frozenset(iter(kwargs.items()))
 
         if not key in fun._cache:
             try:
@@ -30,7 +30,7 @@ def memoize(fun):
 def memoize_per_proc(fun):
     """Memoize per process."""
     def keyfunc(*args, **kwargs):
-        return os.getpid(), args, frozenset(kwargs.iteritems())
+        return os.getpid(), args, frozenset(iter(kwargs.items()))
 
     return memoize_key(keyfunc)(fun)
 
@@ -46,7 +46,7 @@ memoize_cache = {}
 def memoize_(fun, *args, **kwargs):
     """An inline memoize."""
 
-    key = fun, args, frozenset(kwargs.iteritems())
+    key = fun, args, frozenset(iter(kwargs.items()))
 
     if not key in memoize_cache:
         try:
@@ -66,7 +66,7 @@ def memoizei(meth):
         if hasattr(meth, '_memoize_keyfunc'):
             key = meth, fun._memoize_keyfunc(*args, **kwargs)
         else:
-            key = meth, args, frozenset(kwargs.iteritems())
+            key = meth, args, frozenset(iter(kwargs.items()))
 
         if not hasattr(self, '__cache'):
             self.__cache = {}
