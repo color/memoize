@@ -85,6 +85,11 @@ def memoizei(meth):
 
     return decorator(wrapper, meth)
 
+def memoizei_zap_cache(obj):
+    """Clear an instance's memoized values."""
+    if hasattr(obj, '__cache'):
+        delattr(obj, '__cache')
+
 def memoize_key(keyfunc):
     def decorate_function(fun):
         fun._memoize_keyfunc = keyfunc
